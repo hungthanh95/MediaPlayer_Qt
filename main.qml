@@ -1,5 +1,8 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
+import QtQml.Models 2.15
 import QtMultimedia 5.8
 
 Window {
@@ -8,9 +11,30 @@ Window {
     height: 1080
     visible: true
     visibility: "FullScreen"
-//    title: qsTr("Media Player")
+    title: qsTr("Media Player")
 
     // Media Player
+    MediaPlayer {
+        id: mediaPlayerId
+        property bool shuffer: false
+        property bool repeater: false
+        loops: repeater ? MediaPlayer.Infinite : 1
+        onPlaybackStateChanged: {
+            if (playbackState == MediaPlayer.StoppedState &&
+            position == duration) {
+                if (mediaPlayerId.shuffer) {
+                    var newIndex = Math.floor(Math.random() * playlistId.count)
+                    while (newIndex == playlistId.currentIndex) {
+                        newIndex = Math.floor(Math.random() * playlistId.count)
+                    }
+                    playlistId.currentIndex = newIndex;
+                } else if (playlistId.currentIndex < playlistId.count - 1) {
+                    playlistId.currentIndex = playlistId.currentIndex + 1;
+                }
+            }
+        }
+        autoPlay: true
+    }
 
 
 
@@ -31,12 +55,26 @@ Window {
     }
 
     // Playlist
+    Image {
+        id: playlistImg
+        anchors.top: headerId.bottom
+        anchors.bottom: parent.bottom
+        source: "qrc:/Image/playlist.png"
+        opacity: 0.2
+    }
     PlaylistView {
         id: playlistId
         width: 675
         height: 193
+        anchors.fill: playlistImg
         anchors.top : headerId.bottom
-        playlistModels: playlistModelsId
+
+        model: playlistModelsId
+
+        onCurrentItemChanged: {
+            mediaPlayerId.source = playlistId.currentItem.myData.source;
+            mediaPlayerId.play();
+        }
     }
 
     // Media info
@@ -47,8 +85,8 @@ Window {
         anchors.left : playlistId.right
         anchors.top: headerId.bottom
 
-        songDetail: playlistId.currentSong.myData
-        totalSong: playlistModelsId.count
+        songDetail: playlistId.currentItem.myData
+        totalSong: playlistId.count
     }
 
     // Album thumbnail
@@ -63,9 +101,10 @@ Window {
         anchors.leftMargin: 60
 
         model: playlistModelsId
+        playlist: playlistId
     }
 
-//     ProgressBar
+    //     ProgressBar
     MyProgressBar {
         id: myProgressBarId
         width: parent.width - playlistId.width
@@ -73,7 +112,12 @@ Window {
         anchors.left: playlistId.right
         anchors.topMargin: 380
         anchors.leftMargin: 200
+
+        currentTime: mediaPlayerId.position
+        totalTime: mediaPlayerId.duration
+        player: mediaPlayerId
     }
+
     // Media ButtonControl
     GroupButtonsControl {
         id: groupButtonsControlId
@@ -81,6 +125,9 @@ Window {
         anchors.top: myProgressBarId.bottom
         anchors.left: playlistId.right
         anchors.topMargin: 50
+
+        player: mediaPlayerId
+        playlist: playlistId
     }
 
     //Quit App

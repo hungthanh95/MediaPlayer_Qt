@@ -7,6 +7,7 @@ Item {
     property int totalSong: 0
     RowLayout {
         id: rowId
+        spacing: 1
         width: columnId.width
         height: columnId.height / 2
         Layout.alignment: Qt.AlignTop
@@ -21,6 +22,7 @@ Item {
         Image {
             id: musicIconId
             source: "Image/music.png"
+            Layout.alignment: Qt.AlignRight
             anchors.right : numberId.left
         }
         Text {

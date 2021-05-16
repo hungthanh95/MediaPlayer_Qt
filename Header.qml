@@ -4,7 +4,7 @@ Item {
     id: headerItemId
     width: headerImageId.width
     height: headerImageId.height
-    anchors.topMargin: parent.top
+    anchors.topMargin: parent.topMargin
     Image {
         id: headerImageId
         source: "Image/title.png"
