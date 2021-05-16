@@ -38,7 +38,11 @@
         <file>ButtonPlay.qml</file>
         <file>AlbumThumbnail.qml</file>
         <file>MediaInfo.qml</file>
-        <file>Playlist.qml</file>
         <file>MyProgressBar.qml</file>
+        <file>Music/Chuyen-Cua-Mua-Dong-Ha-Anh-Tuan.mp3</file>
+        <file>Music/Hongkong1-Official-Version-Nguyen-Trong-Tai-San-Ji-Double-X.mp3</file>
+        <file>Music/Pho-Khong-Mua-Duong-Truong-Giang-ft-Bui-Anh-Tuan.mp3</file>
+        <file>PlaylistView.qml</file>
+        <file>PlaylistModels.qml</file>
     </qresource>
 </RCC>

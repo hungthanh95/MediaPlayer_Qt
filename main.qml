@@ -1,13 +1,18 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-
+import QtMultimedia 5.8
 
 Window {
-    width: 800
-    height: 600
+    id: root
+    width: 1920
+    height: 1080
     visible: true
     visibility: "FullScreen"
-    title: qsTr("Media Player")
+//    title: qsTr("Media Player")
+
+    // Media Player
+
+
 
     // Background of the Application
     Image {
@@ -20,42 +25,44 @@ Window {
         id: headerId
     }
 
+    // Add Playlist Models
+    PlaylistModels {
+        id: playlistModelsId
+    }
+
     // Playlist
-    Playlist {
+    PlaylistView {
         id: playlistId
+        width: 675
+        height: 193
         anchors.top : headerId.bottom
-        Component.onCompleted: {
-            console.log("Playlist width: " + width)
-            console.log("Playlist height: " + height)
-        }
+        playlistModels: playlistModelsId
     }
 
     // Media info
     MediaInfo {
         id: mediaInfoId
         width: parent.width - playlistId.width
-        height: playlistId.pItemHeight / 2
+        height: 200
         anchors.left : playlistId.right
         anchors.top: headerId.bottom
-    }
-    Text {
-        id: singerId
-        width: parent.width - playlistId.width
-        height: playlistId.pItemHeight / 2
-        font.pointSize: 20
-        color: "white"
-        text: "Singer"
-        padding: 20
-        anchors.top: mediaInfoId.bottom
-        anchors.left: playlistId.right
+
+        songDetail: playlistId.currentSong.myData
+        totalSong: playlistModelsId.count
     }
 
     // Album thumbnail
     AlbumThumbnail {
         id: albumThumnailId
         width: parent.width - playlistId.width
-        anchors.top: singerId.bottom
+//        height: 400
+        anchors.top: mediaInfoId.bottom
+        anchors.topMargin: 120
+
         anchors.left: playlistId.right
+        anchors.leftMargin: 60
+
+        model: playlistModelsId
     }
 
 //     ProgressBar
@@ -64,7 +71,7 @@ Window {
         width: parent.width - playlistId.width
         anchors.top: albumThumnailId.bottom
         anchors.left: playlistId.right
-        anchors.topMargin: 70
+        anchors.topMargin: 380
         anchors.leftMargin: 200
     }
     // Media ButtonControl
