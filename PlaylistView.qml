@@ -24,7 +24,7 @@ ListView {
             Text {
                 anchors.fill: parent
                 color: "white"
-                font.pointSize: 30
+                font.pointSize: 28
                 text: title
                 anchors.leftMargin: 80
                 verticalAlignment: Text.AlignVCenter

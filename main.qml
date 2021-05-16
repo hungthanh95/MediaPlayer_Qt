@@ -14,29 +14,9 @@ Window {
     title: qsTr("Media Player")
 
     // Media Player
-    MediaPlayer {
+    MyMediaPlayer {
         id: mediaPlayerId
-        property bool shuffer: false
-        property bool repeater: false
-        loops: repeater ? MediaPlayer.Infinite : 1
-        onPlaybackStateChanged: {
-            if (playbackState == MediaPlayer.StoppedState &&
-            position == duration) {
-                if (mediaPlayerId.shuffer) {
-                    var newIndex = Math.floor(Math.random() * playlistId.count)
-                    while (newIndex == playlistId.currentIndex) {
-                        newIndex = Math.floor(Math.random() * playlistId.count)
-                    }
-                    playlistId.currentIndex = newIndex;
-                } else if (playlistId.currentIndex < playlistId.count - 1) {
-                    playlistId.currentIndex = playlistId.currentIndex + 1;
-                }
-            }
-        }
-        autoPlay: true
     }
-
-
 
     // Background of the Application
     Image {
@@ -93,7 +73,6 @@ Window {
     AlbumThumbnail {
         id: albumThumnailId
         width: parent.width - playlistId.width
-//        height: 400
         anchors.top: mediaInfoId.bottom
         anchors.topMargin: 120
 
@@ -104,7 +83,7 @@ Window {
         playlist: playlistId
     }
 
-    //     ProgressBar
+    // ProgressBar
     MyProgressBar {
         id: myProgressBarId
         width: parent.width - playlistId.width
@@ -138,6 +117,7 @@ Window {
                 Qt.quit()
             }
         }
+
     }
 
 }

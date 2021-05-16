@@ -42,7 +42,7 @@ RowLayout {
 
         Connections {
             target: player
-            onPlaybackStateChanged: {
+           function onPlaybackStateChanged() {
                 if (player.playbackState == MediaPlayer.PlayingState) {
                     buttonPlayId.source = "qrc:/Image/pause.png"
                 } else {

@@ -8,10 +8,10 @@ PathView {
     preferredHighlightBegin: 0.5
     preferredHighlightEnd: 0.5
     focus: true
-
+    pathItemCount: 3
     delegate: Item {
         width: 400; height: 400
-        scale: PathView.iconScale
+        scale: PathView.iconScale == undefined ? 0 : PathView.iconScale
 
         Image {
             id: myIcon
@@ -45,7 +45,7 @@ PathView {
 
     Connections {
         target: playlist
-        onCurrentIndexChanged: {
+       function onCurrentIndexChanged() {
             albumThumnail.currentIndex = playlist.currentIndex
         }
     }

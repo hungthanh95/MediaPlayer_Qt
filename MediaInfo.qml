@@ -19,18 +19,24 @@ Item {
             text: songDetail.title
             Layout.alignment: Qt.AlignLeft
         }
-        Image {
-            id: musicIconId
-            source: "Image/music.png"
-            Layout.alignment: Qt.AlignRight
-            anchors.right : numberId.left
-        }
-        Text {
-            id: numberId
-            padding: 20
-            text: totalSong
-            font.pointSize: 20
-            color: "white"
+        Item {
+            id: groupNumMusicId
+            width: Math.abs(columnId.width - songTitleId.width)
+            height: columnId.height / 2
+            Image {
+                id: musicIconId
+                source: "Image/music.png"
+                anchors.verticalCenter: groupNumMusicId.verticalCenter
+                anchors.right : numberId.left
+            }
+            Text {
+                id: numberId
+                padding: 20
+                text: totalSong
+                font.pointSize: 20
+                color: "white"
+                anchors.right: groupNumMusicId.right
+            }
             Layout.alignment: Qt.AlignRight
         }
     }
