@@ -6,15 +6,21 @@ RowLayout {
     id: groupButtonsControlId
     property variant player: NULL
     property variant playlist: NULL
-    RepeatButton {
+
+    SwitchButton {
+        icon_on: "Image/shuffle.png"
+        icon_off: "Image/shuffle-1.png"
         Layout.alignment: Qt.AlignLeft
         Layout.leftMargin: 140
         onClicked: {
-            player.repeater = !player.repeater
+            player.shuffer = !player.shuffer
         }
     }
 
-    ButtonPrevious {
+    ButtonControl {
+        icon_default: "Image/prev.png"
+        icon_pressed: "Image/hold-prev.png"
+        icon_released: "Image/prev.png"
         anchors.right: buttonPlayId.left
         onClicked: {
             if (playlist.currentIndex <= 0) {
@@ -25,7 +31,7 @@ RowLayout {
         }
     }
 
-    ButtonPlay {
+    ButtonControl {
         id: buttonPlayId
         Layout.alignment: Qt.AlignHCenter
         icon_default: player.playbackState == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
@@ -53,7 +59,10 @@ RowLayout {
 
     }
 
-    ButtonNext {
+    ButtonControl {
+         icon_default: "Image/next.png"
+        icon_pressed: "Image/hold-next.png"
+        icon_released: "Image/next.png"
         anchors.left: buttonPlayId.right
         onClicked: {
             if (playlist.currentIndex >= (playlist.count - 1)) {
@@ -63,12 +72,15 @@ RowLayout {
             }
         }
     }
-    ButtonShuffle {
+
+
+    SwitchButton {
+        icon_on: "Image/repeat.png"
+        icon_off: "Image/repeat1_hold.png"
         Layout.alignment: Qt.AlignRight
         Layout.rightMargin: 140
-
         onClicked: {
-            player.shuffer = !player.shuffer
+            player.repeater = !player.repeater
         }
     }
 }

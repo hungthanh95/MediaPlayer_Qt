@@ -9,7 +9,7 @@ Item {
         id: rowId
         spacing: 1
         width: columnId.width
-        height: columnId.height / 2
+        height: columnId.height / 2 - 30
         Layout.alignment: Qt.AlignTop
         Text {
             id: songTitleId
@@ -18,6 +18,11 @@ Item {
             color: "white"
             text: songDetail.title
             Layout.alignment: Qt.AlignLeft
+
+            onTextChanged: {
+                textAnimationId.targets = [songTitleId, singerId]
+                textAnimationId.restart()
+            }
         }
         Item {
             id: groupNumMusicId
@@ -39,17 +44,28 @@ Item {
             }
             Layout.alignment: Qt.AlignRight
         }
+        Layout.margins: 0
     }
-        Text {
-            id: singerId
-            font.pointSize: 20
-            color: "white"
-            text: songDetail.singer
-            padding: 20
+    Text {
+        id: singerId
+        font.pointSize: 20
+        color: "white"
+        text: songDetail.singer
+        padding: 20
+        anchors.bottomMargin: 100
+        anchors.top: rowId.bottom
+        anchors.left: columnId.left
 
-            anchors.top: rowId.bottom
-            anchors.left: columnId.left
-        }
+    }
+
+    NumberAnimation {
+        id: textAnimationId
+        property: "opacity"
+        from: 0
+        to: 1
+        duration: 400
+        easing.type: Easing.InOutQuad
+    }
 }
 
 

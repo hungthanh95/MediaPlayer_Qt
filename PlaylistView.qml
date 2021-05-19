@@ -5,14 +5,15 @@ import QtQuick.Controls 2.12
 
 ListView {
     id: playlistView
+    property bool isMuted: false
     clip: true
     currentIndex: 0
     delegate:
         MouseArea {
-        property variant myData: model
+            property variant myData: model
             implicitHeight: playlistItemImg.height
             implicitWidth: playlistItemImg.width
-
+            z: 99
             Image {
                 id: playlistItemImg
                 width: 675
@@ -38,14 +39,30 @@ ListView {
             onReleased: {
                 playlistItemImg.source = 'qrc:/Image/playlist.png'
             }
+            onCanceled: {
+                playlistItemImg.source = 'qrc:/Image/playlist.png'
+            }
         }
     highlight: Image {
         source: "qrc:/Image/playlist_item.png"
         Image {
+            id: playingIcon
             anchors.left: parent.left
             anchors.leftMargin: 15
             anchors.verticalCenter: parent.verticalCenter
             source: "qrc:/Image/playing.png"
+
+            MouseArea {
+                implicitHeight: playingIcon.height
+                implicitWidth: playingIcon.width
+                propagateComposedEvents: true
+                z: 100
+                onDoubleClicked: {
+                    mouse.accepted = false
+                    playlistView.isMuted = !playlistView.isMuted
+
+                }
+            }
         }
     }
 
@@ -55,4 +72,5 @@ ListView {
         anchors.left: playlistView.right
         anchors.bottom: playlistView.bottom
     }
+
 }

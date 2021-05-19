@@ -3,8 +3,8 @@ import QtQuick 2.12
 
 MouseArea {
     id: root
-    property string icon_on: "Image/repeat.png"
-    property string icon_off: "Image/repeat1_hold.png"
+    property string icon_on: ""
+    property string icon_off: ""
     property bool status: false
 
     implicitWidth: img.width

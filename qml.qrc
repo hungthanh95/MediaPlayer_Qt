@@ -29,13 +29,8 @@
         <file>Image/shuffle.png</file>
         <file>Image/title.png</file>
         <file>Image/USB Mussic.png</file>
-        <file>ButtonShuffle.qml</file>
         <file>Header.qml</file>
-        <file>RepeatButton.qml</file>
         <file>GroupButtonsControl.qml</file>
-        <file>ButtonPrevious.qml</file>
-        <file>ButtonNext.qml</file>
-        <file>ButtonPlay.qml</file>
         <file>AlbumThumbnail.qml</file>
         <file>MediaInfo.qml</file>
         <file>MyProgressBar.qml</file>
@@ -49,5 +44,7 @@
         <file>Music/SaiGonDauLongQua-HuaKimTuyenHoangDuyen.mp3</file>
         <file>Image/HuaKimTuyen-HoangDuyen.jpg</file>
         <file>MyMediaPlayer.qml</file>
+        <file>ButtonControl.qml</file>
+        <file>SwitchButton.qml</file>
     </qresource>
 </RCC>

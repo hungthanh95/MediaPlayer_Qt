@@ -55,6 +55,14 @@ Window {
             mediaPlayerId.source = playlistId.currentItem.myData.source;
             mediaPlayerId.play();
         }
+
+        onIsMutedChanged: {
+            if (playlistId.isMuted) {
+                mediaPlayerId.volume = 0
+            } else {
+                mediaPlayerId.volume = 1
+            }
+        }
     }
 
     // Media info
@@ -68,6 +76,7 @@ Window {
         songDetail: playlistId.currentItem.myData
         totalSong: playlistId.count
     }
+
 
     // Album thumbnail
     AlbumThumbnail {
@@ -89,8 +98,9 @@ Window {
         width: parent.width - playlistId.width
         anchors.top: albumThumnailId.bottom
         anchors.left: playlistId.right
-        anchors.topMargin: 380
         anchors.leftMargin: 200
+
+        anchors.topMargin: 380
 
         currentTime: mediaPlayerId.position
         totalTime: mediaPlayerId.duration
@@ -102,8 +112,9 @@ Window {
         id: groupButtonsControlId
         width: parent.width - playlistId.width
         anchors.top: myProgressBarId.bottom
-        anchors.left: playlistId.right
         anchors.topMargin: 50
+
+        anchors.left: playlistId.right
 
         player: mediaPlayerId
         playlist: playlistId
