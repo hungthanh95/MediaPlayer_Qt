@@ -1,4 +1,4 @@
-QT += quick
+QT += quick multimedia core
 
 CONFIG += c++11
 
@@ -6,8 +6,13 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+DEFINES += QT_DEPRECATED_WARNINGS
+
+
 SOURCES += \
-        main.cpp
+        main.cpp \
+        player.cpp \
+        playlistmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,3 +26,15 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    player.h \
+    playlistmodel.h
+
+
+LIBS += -L'C:/Program Files (x86)/taglib/lib/' -ltag
+
+INCLUDEPATH += 'C:/Program Files (x86)/taglib/include'
+DEPENDPATH += 'C:/Program Files (x86)/taglib/include'
+
+PRE_TARGETDEPS += 'C:/Program Files (x86)/taglib/lib/libtag.a'

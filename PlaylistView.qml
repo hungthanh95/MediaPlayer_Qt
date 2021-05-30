@@ -5,7 +5,6 @@ import QtQuick.Controls 2.12
 
 ListView {
     id: playlistView
-    property bool isMuted: false
     clip: true
     currentIndex: 0
     delegate:
@@ -57,11 +56,6 @@ ListView {
                 implicitWidth: playingIcon.width
                 propagateComposedEvents: true
                 z: 100
-                onDoubleClicked: {
-                    mouse.accepted = false
-                    playlistView.isMuted = !playlistView.isMuted
-
-                }
             }
         }
     }

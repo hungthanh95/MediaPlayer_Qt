@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQml.Models 2.15
 import QtMultimedia 5.8
+import QtQuick.Dialogs 1.3
 
 Window {
     id: root
@@ -54,14 +55,6 @@ Window {
         onCurrentItemChanged: {
             mediaPlayerId.source = playlistId.currentItem.myData.source;
             mediaPlayerId.play();
-        }
-
-        onIsMutedChanged: {
-            if (playlistId.isMuted) {
-                mediaPlayerId.volume = 0
-            } else {
-                mediaPlayerId.volume = 1
-            }
         }
     }
 
