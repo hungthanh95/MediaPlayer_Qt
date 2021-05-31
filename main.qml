@@ -6,6 +6,7 @@ import QtQml.Models 2.15
 import QtMultimedia 5.8
 import QtQuick.Dialogs 1.3
 
+
 Window {
     id: root
     width: 1920
@@ -14,10 +15,7 @@ Window {
     visibility: "FullScreen"
     title: qsTr("Media Player")
 
-    // Media Player
-    MyMediaPlayer {
-        id: mediaPlayerId
-    }
+    // Media Player now is myPlayer
 
     // Background of the Application
     Image {
@@ -28,11 +26,6 @@ Window {
     // Header
     Header {
         id: headerId
-    }
-
-    // Add Playlist Models
-    PlaylistModels {
-        id: playlistModelsId
     }
 
     // Playlist
@@ -50,11 +43,15 @@ Window {
         anchors.fill: playlistImg
         anchors.top : headerId.bottom
 
-        model: playlistModelsId
+        model: m_playplistModel
 
         onCurrentItemChanged: {
-            mediaPlayerId.source = playlistId.currentItem.myData.source;
-            mediaPlayerId.play();
+            m_player.playlist.setCurrentIndex(playlistId.currentIndex);
+            m_player.play();
+        }
+
+        onIsMutedChanged: {
+            m_player.setMuted(playlistId.isMuted)
         }
     }
 
@@ -81,7 +78,7 @@ Window {
         anchors.left: playlistId.right
         anchors.leftMargin: 60
 
-        model: playlistModelsId
+        model: m_playplistModel
         playlist: playlistId
     }
 
@@ -89,15 +86,14 @@ Window {
     MyProgressBar {
         id: myProgressBarId
         width: parent.width - playlistId.width
-        anchors.top: albumThumnailId.bottom
+
         anchors.left: playlistId.right
         anchors.leftMargin: 200
-
         anchors.topMargin: 380
+        anchors.top: albumThumnailId.bottom
 
-        currentTime: mediaPlayerId.position
-        totalTime: mediaPlayerId.duration
-        player: mediaPlayerId
+        my_player: myPlayer
+        player: m_player
     }
 
     // Media ButtonControl
@@ -109,8 +105,15 @@ Window {
 
         anchors.left: playlistId.right
 
-        player: mediaPlayerId
-        playlist: playlistId
+        my_player: myPlayer
+        player: m_player
+    }
+
+    Connections{
+        target: m_player.playlist
+        onCurrentIndexChanged: {
+            playlistId.currentIndex = m_player.playlist.currentIndex
+        }
     }
 
     //Quit App

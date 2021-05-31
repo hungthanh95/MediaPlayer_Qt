@@ -12,7 +12,7 @@ PlaylistModel::PlaylistModel(QObject *parent)
 int PlaylistModel::rowCount(const QModelIndex &parent) const
 {
 //   Q_UNUSED(parent);
-    if (parent.isValid())
+    if (parent.isValid() || m_data.isEmpty())
         return 0;
     return m_data.size();
 }
@@ -20,10 +20,18 @@ int PlaylistModel::rowCount(const QModelIndex &parent) const
 
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid() || m_data.isEmpty())
         return QVariant();
-    if (role == Qt::DecorationRole)
-        return QVariant();
+    switch (role) {
+    case TitleRole:
+        return m_data[index.row()].title();
+    case SingerRole:
+        return m_data[index.row()].singer();
+    case SourceRole:
+        return m_data[index.row()].source();
+    case AlbumArtRole:
+        return m_data[index.row()].album_art();
+    }
     return QVariant();
 }
 
@@ -32,10 +40,15 @@ void PlaylistModel::addSong(Song &song)
     m_data.append(song);
 }
 
-//QHash<int, QByteArray> PlaylistModel::roleNames() const
-//{
-//    return QHash<int, QByteArray>();
-//}
+QHash<int, QByteArray> PlaylistModel::roleNames() const
+{
+    QHash<int, QByteArray> names;
+    names[TitleRole] = "title";
+    names[SingerRole] = "singer";
+    names[SourceRole] = "source";
+    names[AlbumArtRole] = "albumArt";
+    return names;
+}
 
 Song::Song(const QString &title, const QString &singer, const QString &source, const QString &albumArt)
 {

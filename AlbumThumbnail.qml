@@ -19,7 +19,7 @@ PathView {
             height: parent.height
             y: 20
             anchors.horizontalCenter: parent.horizontalCenter
-            source: icon
+            source: albumArt
         }
 
         MouseArea {

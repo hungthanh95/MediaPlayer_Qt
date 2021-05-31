@@ -4,8 +4,8 @@ import QtMultimedia 5.8
 
 RowLayout {
     id: groupButtonsControlId
+    property variant my_player: NULL
     property variant player: NULL
-    property variant playlist: NULL
 
     SwitchButton {
         icon_on: "Image/shuffle.png"
@@ -13,7 +13,7 @@ RowLayout {
         Layout.alignment: Qt.AlignLeft
         Layout.leftMargin: 140
         onClicked: {
-            player.shuffer = !player.shuffer
+            my_player.shuffle();
         }
     }
 
@@ -23,40 +23,31 @@ RowLayout {
         icon_released: "Image/prev.png"
         anchors.right: buttonPlayId.left
         onClicked: {
-            if (playlist.currentIndex <= 0) {
-                playlist.currentIndex = 0;
-            } else {
-                playlist.currentIndex--;
-            }
+           my_player.prevMedia();
         }
     }
 
     ButtonControl {
         id: buttonPlayId
         Layout.alignment: Qt.AlignHCenter
-        icon_default: player.playbackState == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
-        icon_pressed: player.playbackState == MediaPlayer.PlayingState ?  "qrc:/Image/hold-pause.png" : "qrc:/Image/hold-play.png"
-        icon_released: player.playbackState == MediaPlayer.PlayingState ?  "qrc:/Image/play.png" : "qrc:/Image/pause.png"
+        icon_default: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
+        icon_pressed: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/hold-pause.png" : "qrc:/Image/hold-play.png"
+        icon_released: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
 
         onClicked: {
-            if (player.playbackState != MediaPlayer.PlayingState) {
-                player.play()
+            my_player.play();
+        }
+    }
+
+    Connections {
+        target: player
+       function onStateChanged() {
+            if (player.state == MediaPlayer.PlayingState) {
+                buttonPlayId.source = "qrc:/Image/pause.png"
             } else {
-                player.pause()
+                buttonPlayId.source = "qrc:/Image/play.png"
             }
         }
-
-        Connections {
-            target: player
-           function onPlaybackStateChanged() {
-                if (player.playbackState == MediaPlayer.PlayingState) {
-                    buttonPlayId.source = "qrc:/Image/pause.png"
-                } else {
-                    buttonPlayId.source = "qrc:/Image/play.png"
-                }
-            }
-        }
-
     }
 
     ButtonControl {
@@ -65,11 +56,7 @@ RowLayout {
         icon_released: "Image/next.png"
         anchors.left: buttonPlayId.right
         onClicked: {
-            if (playlist.currentIndex >= (playlist.count - 1)) {
-                playlist.currentIndex = playlist.count - 1;
-            } else {
-                playlist.currentIndex++;
-            }
+            my_player.nextMedia();
         }
     }
 
@@ -80,7 +67,7 @@ RowLayout {
         Layout.alignment: Qt.AlignRight
         Layout.rightMargin: 140
         onClicked: {
-            player.repeater = !player.repeater
+            my_player.repeater();
         }
     }
 }

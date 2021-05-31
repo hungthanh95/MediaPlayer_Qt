@@ -48,10 +48,10 @@ public:
 
 
 protected:
-//    QHash<int, QByteArray> roleNames() const override;
+    QHash<int, QByteArray> roleNames() const override;
 
 private:
-    QList<Song> m_data;
+    QList<Song> m_data ;
 };
 
 #endif // PLAYLISTMODEL_H

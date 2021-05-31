@@ -4,27 +4,17 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: myProgressBar
-    property int currentTime: 0
-    property int totalTime: 0
     property variant player: NULL
-
+    property variant my_player: NULL
     function str_pad_left(string,pad,length) {
         return (new Array(length+1).join(pad)+string).slice(-length);
-    }
-
-    function getTime(time){
-        time = time/1000
-        var minutes = Math.floor(time / 60);
-        var seconds = Math.floor(time - minutes * 60);
-
-        return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
     }
 
     Text {
         id: currentTime
         color: "white"
         font.pointSize: 17
-        text: getTime(myProgressBar.currentTime)
+        text: my_player.getTimeInfo(myProgressBar.player.position)
         anchors.right: sliderBar.left
         anchors.rightMargin: 20
     }
@@ -35,8 +25,8 @@ Item {
         anchors.left: currentTime.right
         anchors.leftMargin: 20
         from: 0
-        to: myProgressBar.totalTime
-        value: myProgressBar.currentTime
+        to: myProgressBar.player.duration
+        value: myProgressBar.player.position
         background: Rectangle {
             x: sliderBar.leftPadding
             y: sliderBar.topPadding + sliderBar.availableHeight / 2 - height / 2
@@ -66,7 +56,7 @@ Item {
         }
         onMoved: {
             if (player.seekable){
-                player.seek(value);
+                player.setPosition(value);
             }
         }
     }
@@ -75,9 +65,17 @@ Item {
     Text {
         id: totalTime
         color: "white"
-        text: getTime(myProgressBar.totalTime)
+        text: my_player.getTimeInfo(myProgressBar.player.duration)
         font.pointSize: 17
         anchors.left: sliderBar.right
         anchors.leftMargin: 30
+    }
+
+    function getTime(time){
+        time = time/1000
+        var minutes = Math.floor(time / 60);
+        var seconds = Math.floor(time - minutes * 60);
+
+        return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
     }
 }
