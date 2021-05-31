@@ -26,23 +26,37 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
+    // Constructor
     explicit Player(QObject *parent = nullptr);
 
+    // add media to playlist
     void addToPlaylist(const QList<QUrl> &urls);
 
+    // open folder Music in your Os
     void open();
+
+
+
+public slots:
+    void shuffle();
+    void prevMedia();
+    void nextMedia();
+    void repeater();
+    void play();
+    // parser time follow format hh:mm:ss
     QString getTimeInfo(qint64 currentInfo);
 
 public:
     QString getAlbumArt(FileRef f, QUrl url);
 
 
+
     QMediaPlayer *m_player = nullptr;
     QMediaPlaylist *m_playlist = nullptr;
     PlaylistModel *m_playlistModel = nullptr;
 
-    boolean m_shuffle;
-
+    bool m_shuffle;
+    bool m_repeat;
 };
 
 #endif // PLAYER_H

@@ -15,10 +15,7 @@ Window {
     visibility: "FullScreen"
     title: qsTr("Media Player")
 
-    // Media Player
-//    MyMediaPlayer {
-//        id: mediaPlayerId
-//    }
+    // Media Player now is myPlayer
 
     // Background of the Application
     Image {
@@ -49,9 +46,12 @@ Window {
         model: m_playplistModel
 
         onCurrentItemChanged: {
-//            m_player.source = playlistId.currentItem.myData.source;
             m_player.playlist.setCurrentIndex(playlistId.currentIndex);
             m_player.play();
+        }
+
+        onIsMutedChanged: {
+            m_player.setMuted(playlistId.isMuted)
         }
     }
 
@@ -92,6 +92,7 @@ Window {
         anchors.topMargin: 380
         anchors.top: albumThumnailId.bottom
 
+        my_player: myPlayer
         player: m_player
     }
 
@@ -104,8 +105,15 @@ Window {
 
         anchors.left: playlistId.right
 
+        my_player: myPlayer
         player: m_player
-        playlist: playlistId
+    }
+
+    Connections{
+        target: m_player.playlist
+        onCurrentIndexChanged: {
+            playlistId.currentIndex = m_player.playlist.currentIndex
+        }
     }
 
     //Quit App

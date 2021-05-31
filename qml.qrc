@@ -46,5 +46,6 @@
         <file>ButtonControl.qml</file>
         <file>SwitchButton.qml</file>
         <file>Image/album_art.png</file>
+        <file>Image/playing_muted.png</file>
     </qresource>
 </RCC>

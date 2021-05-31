@@ -5,14 +5,39 @@ import QtQuick.Controls 2.12
 
 ListView {
     id: playlistView
+    property bool isMuted: false
     clip: true
     currentIndex: 0
+    highlight: Image {
+        source: "qrc:/Image/playlist_item.png"
+        Image {
+            id: playingIcon
+            anchors.left: parent.left
+            anchors.leftMargin: 15
+            anchors.verticalCenter: parent.verticalCenter
+            source: "qrc:/Image/playing.png"
+            MouseArea {
+                implicitHeight: playingIcon.height
+                implicitWidth: playingIcon.width
+
+                z: 1
+                onClicked: {
+                    playlistView.isMuted = !playlistView.isMuted
+                    if (playlistView.isMuted) {
+                        playingIcon.source = "qrc:/Image/playing_muted.png"
+                    } else {
+                        playingIcon.source = "qrc:/Image/playing.png"
+                    }
+                }
+            }
+        }
+    }
     delegate:
         MouseArea {
             property variant myData: model
             implicitHeight: playlistItemImg.height
             implicitWidth: playlistItemImg.width
-            z: 99
+            propagateComposedEvents: true
             Image {
                 id: playlistItemImg
                 width: 675
@@ -31,6 +56,7 @@ ListView {
             }
             onClicked: {
                 playlistView.currentIndex = index
+                mouse.accepted = false
             }
             onPressed: {
                 playlistItemImg.source = 'qrc:/Image/hold.png'
@@ -42,23 +68,6 @@ ListView {
                 playlistItemImg.source = 'qrc:/Image/playlist.png'
             }
         }
-    highlight: Image {
-        source: "qrc:/Image/playlist_item.png"
-        Image {
-            id: playingIcon
-            anchors.left: parent.left
-            anchors.leftMargin: 15
-            anchors.verticalCenter: parent.verticalCenter
-            source: "qrc:/Image/playing.png"
-
-            MouseArea {
-                implicitHeight: playingIcon.height
-                implicitWidth: playingIcon.width
-                propagateComposedEvents: true
-                z: 100
-            }
-        }
-    }
 
     ScrollBar.vertical: ScrollBar {
         parent: playlistView.parent

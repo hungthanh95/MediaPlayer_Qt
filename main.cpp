@@ -18,12 +18,11 @@ int main(int argc, char *argv[])
     Player player;
     engine.rootContext()->setContextProperty("m_playplistModel", player.m_playlistModel);
     engine.rootContext()->setContextProperty("m_player" ,player.m_player);
-    engine.rootContext()->setContextProperty("player",&player);
+    engine.rootContext()->setContextProperty("myPlayer", &player);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
-
 
     return app.exec();
 }

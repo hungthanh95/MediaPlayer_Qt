@@ -9,19 +9,22 @@
 #include <QTime>
 #include <QDir>
 #include <QStandardPaths>
-
+#include <math.h>
 
 Player::Player(QObject *parent) : QObject(parent)
 {
     m_shuffle = false;
+    m_repeat = false;
     m_player = new QMediaPlayer(this);
     m_playlist = new QMediaPlaylist(this);
     m_player->setPlaylist(m_playlist);
     m_playlistModel = new PlaylistModel(this);
+    m_player->setVolume(25);
     open();
     if (!m_playlist->isEmpty()) {
         m_playlist->setCurrentIndex(0);
     }
+//    connect(this->m_player, &QMediaPlayer::mediaStatusChanged, this, &Player::handleEndMedia);
 }
 void Player::open() {
     QDir directory(QStandardPaths::standardLocations(QStandardPaths::MusicLocation)[0]);
@@ -118,3 +121,63 @@ QString Player::getAlbumArt(FileRef ref, QUrl url)
 
     return "qrc:/Image/album_art.png";
 }
+
+void Player::shuffle()
+{
+    m_shuffle = !m_shuffle;
+    if (m_shuffle) {
+        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Random);
+    } else if (m_playlist->playbackMode() != QMediaPlaylist::PlaybackMode::Sequential) {
+        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Sequential);
+    } else {
+        // Do nothing
+    }
+}
+
+void Player::prevMedia()
+{
+    m_playlist->previous();
+}
+
+void Player::nextMedia()
+{
+    m_playlist->next();
+}
+
+void Player::repeater()
+{
+    m_repeat = !m_repeat;
+
+    if (m_repeat) {
+        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::CurrentItemInLoop);
+    } else if (m_playlist->playbackMode() != QMediaPlaylist::PlaybackMode::Sequential) {
+        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Sequential);
+    } else {
+        // Do nothing
+    }
+}
+
+void Player::play()
+{
+    if (m_player->state() == QMediaPlayer::State::PlayingState) {
+        m_player->pause();
+    } else {
+        m_player->play();
+    }
+}
+
+//void Player::handleEndMedia()
+//{
+//    if (m_player->state() == QMediaPlayer::StoppedState &&
+//        m_player->position() == m_player->duration()) {
+//        if (m_shuffle) {
+//            int newIndex = floor(rand() % m_playlist->mediaCount());
+//            while (newIndex == m_playlist->currentIndex()) {
+//                newIndex =  floor(rand() % m_playlist->mediaCount());
+//            }
+//            m_playlist->setCurrentIndex(newIndex);
+//        } else if (m_playlist->currentIndex() < m_playlist->mediaCount() - 1) {
+//            m_playlist->setCurrentIndex(m_playlist->currentIndex() + 1);
+//        }
+//    }
+//}
