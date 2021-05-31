@@ -32,9 +32,9 @@ HEADERS += \
     playlistmodel.h
 
 
-LIBS += -L'C:/Program Files (x86)/taglib/lib/' -ltag
+LIBS += -L'C:/Program Files (x86)/taglib/bin' -ltag
 
 INCLUDEPATH += 'C:/Program Files (x86)/taglib/include'
 DEPENDPATH += 'C:/Program Files (x86)/taglib/include'
 
-PRE_TARGETDEPS += 'C:/Program Files (x86)/taglib/lib/libtag.a'
+

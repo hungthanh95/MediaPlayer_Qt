@@ -4,8 +4,6 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: myProgressBar
-    property int currentTime: 0
-    property int totalTime: 0
     property variant player: NULL
 
     function str_pad_left(string,pad,length) {
@@ -24,7 +22,7 @@ Item {
         id: currentTime
         color: "white"
         font.pointSize: 17
-        text: getTime(myProgressBar.currentTime)
+        text: getTime(myProgressBar.player.position)
         anchors.right: sliderBar.left
         anchors.rightMargin: 20
     }
@@ -35,8 +33,8 @@ Item {
         anchors.left: currentTime.right
         anchors.leftMargin: 20
         from: 0
-        to: myProgressBar.totalTime
-        value: myProgressBar.currentTime
+        to: myProgressBar.player.duration
+        value: myProgressBar.player.position
         background: Rectangle {
             x: sliderBar.leftPadding
             y: sliderBar.topPadding + sliderBar.availableHeight / 2 - height / 2
@@ -66,7 +64,7 @@ Item {
         }
         onMoved: {
             if (player.seekable){
-                player.seek(value);
+                player.setPosition(value);
             }
         }
     }
@@ -75,7 +73,7 @@ Item {
     Text {
         id: totalTime
         color: "white"
-        text: getTime(myProgressBar.totalTime)
+        text: getTime(myProgressBar.player.duration)
         font.pointSize: 17
         anchors.left: sliderBar.right
         anchors.leftMargin: 30

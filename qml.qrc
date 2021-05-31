@@ -38,7 +38,6 @@
         <file>Music/Hongkong1-Official-Version-Nguyen-Trong-Tai-San-Ji-Double-X.mp3</file>
         <file>Music/Pho-Khong-Mua-Duong-Truong-Giang-ft-Bui-Anh-Tuan.mp3</file>
         <file>PlaylistView.qml</file>
-        <file>PlaylistModels.qml</file>
         <file>Music/Sap30-TrinhDinhQuang.mp3</file>
         <file>Image/Trinh-Dinh-Quang.jpg</file>
         <file>Music/SaiGonDauLongQua-HuaKimTuyenHoangDuyen.mp3</file>
@@ -46,5 +45,6 @@
         <file>MyMediaPlayer.qml</file>
         <file>ButtonControl.qml</file>
         <file>SwitchButton.qml</file>
+        <file>Image/album_art.png</file>
     </qresource>
 </RCC>
