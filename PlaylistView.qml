@@ -1,8 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
-
-
 ListView {
     id: playlistView
     property bool isMuted: false
@@ -49,7 +47,7 @@ ListView {
             Text {
                 anchors.fill: parent
                 color: "white"
-                font.pointSize: 28
+                font.pointSize: 26
                 text: title
                 anchors.leftMargin: 80
                 verticalAlignment: Text.AlignVCenter

@@ -12,10 +12,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         player.cpp \
-        playlistmodel.cpp
+        playlistmodel.cpp \
+        translation.cpp
+
+HEADERS += \
+    player.h \
+    playlistmodel.h \
+    translation.h
 
 RESOURCES += qml.qrc
 
+TRANSLATIONS = translator/MediaPlayer_VI.ts \
+               translator/MediaPlayer_EN.ts
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
@@ -27,14 +35,17 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    player.h \
-    playlistmodel.h
 
+<<<<<<< HEAD
 
-LIBS += -L'C:/Program Files (x86)/taglib/bin' -ltag
+LIBS += -L$$PWD/taglib/bin -ltag
+=======
+LIBS += -L$$PWD/taglib/bin -ltag
 
-INCLUDEPATH += 'C:/Program Files (x86)/taglib/include'
-DEPENDPATH += 'C:/Program Files (x86)/taglib/include'
+INCLUDEPATH += $$PWD/taglib/include
+DEPENDPATH += $$PWD/taglib/include
+>>>>>>> d3d1c50db34313629d2bcecc6826465d8a6bec70
 
+INCLUDEPATH += $$PWD/taglib/include
+DEPENDPATH += $$PWD/taglib/include
 

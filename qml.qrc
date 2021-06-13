@@ -2,19 +2,15 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Image/background.png</file>
-        <file>Image/Bui-Anh-Tuan.png</file>
         <file>Image/center_point.png</file>
-        <file>Image/Ha-Anh-Tuan.png</file>
         <file>Image/hold-next.png</file>
         <file>Image/hold-pause.png</file>
         <file>Image/hold-play.png</file>
         <file>Image/hold-prev.png</file>
         <file>Image/hold.png</file>
-        <file>Image/Hongkong1.png</file>
         <file>Image/music.png</file>
         <file>Image/next.png</file>
         <file>Image/pause.png</file>
-        <file>Image/Pho-khong-mua-BAT.png</file>
         <file>Image/play.png</file>
         <file>Image/playing.png</file>
         <file>Image/playlist.png</file>
@@ -34,18 +30,17 @@
         <file>AlbumThumbnail.qml</file>
         <file>MediaInfo.qml</file>
         <file>MyProgressBar.qml</file>
-        <file>Music/Chuyen-Cua-Mua-Dong-Ha-Anh-Tuan.mp3</file>
-        <file>Music/Hongkong1-Official-Version-Nguyen-Trong-Tai-San-Ji-Double-X.mp3</file>
-        <file>Music/Pho-Khong-Mua-Duong-Truong-Giang-ft-Bui-Anh-Tuan.mp3</file>
         <file>PlaylistView.qml</file>
-        <file>Music/Sap30-TrinhDinhQuang.mp3</file>
-        <file>Image/Trinh-Dinh-Quang.jpg</file>
-        <file>Music/SaiGonDauLongQua-HuaKimTuyenHoangDuyen.mp3</file>
-        <file>Image/HuaKimTuyen-HoangDuyen.jpg</file>
-        <file>MyMediaPlayer.qml</file>
         <file>ButtonControl.qml</file>
         <file>SwitchButton.qml</file>
         <file>Image/album_art.png</file>
         <file>Image/playing_muted.png</file>
+        <file>translator/MediaPlayer_EN.qm</file>
+        <file>translator/MediaPlayer_VI.qm</file>
+        <file>Image/back.png</file>
+        <file>Image/drawer.png</file>
+        <file>Image/drawer_p.png</file>
+        <file>Image/us.png</file>
+        <file>Image/vn.png</file>
     </qresource>
 </RCC>

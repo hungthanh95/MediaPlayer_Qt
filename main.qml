@@ -13,7 +13,7 @@ Window {
     height: 1080
     visible: true
     visibility: "FullScreen"
-    title: qsTr("Media Player")
+    title: qsTr("Media Player") + translator.emptyString
 
     // Media Player now is myPlayer
 
@@ -26,6 +26,10 @@ Window {
     // Header
     Header {
         id: headerId
+        onPlaylistButtonStatusChanged: {
+            drawer.open()
+
+        }
     }
 
     // Playlist
@@ -43,16 +47,31 @@ Window {
         anchors.fill: playlistImg
         anchors.top : headerId.bottom
 
-        model: m_playplistModel
+        model: playplistModel
 
         onCurrentItemChanged: {
-            m_player.playlist.setCurrentIndex(playlistId.currentIndex);
-            m_player.play();
+            player.playlist.setCurrentIndex(playlistId.currentIndex);
+            player.play();
         }
 
         onIsMutedChanged: {
-            m_player.setMuted(playlistId.isMuted)
+            player.setMuted(playlistId.isMuted)
         }
+    }
+
+    Drawer {
+        id : drawer
+        y: headerId
+        width: 675
+        height: parent.height - headerId.height
+        interactive: false;
+        modal: false
+        background: Rectangle {
+            id: playList_bg
+            anchors.fill: parent
+            color: "transparent"
+        }
+
     }
 
     // Media info
@@ -78,7 +97,7 @@ Window {
         anchors.left: playlistId.right
         anchors.leftMargin: 60
 
-        model: m_playplistModel
+        model: playplistModel
         playlist: playlistId
     }
 
@@ -91,9 +110,6 @@ Window {
         anchors.leftMargin: 200
         anchors.topMargin: 380
         anchors.top: albumThumnailId.bottom
-
-        my_player: myPlayer
-        player: m_player
     }
 
     // Media ButtonControl
@@ -104,15 +120,12 @@ Window {
         anchors.topMargin: 50
 
         anchors.left: playlistId.right
-
-        my_player: myPlayer
-        player: m_player
     }
 
     Connections{
-        target: m_player.playlist
+        target: player.playlist
         onCurrentIndexChanged: {
-            playlistId.currentIndex = m_player.playlist.currentIndex
+            playlistId.currentIndex = player.playlist.currentIndex
         }
     }
 

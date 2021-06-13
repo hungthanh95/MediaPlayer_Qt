@@ -125,12 +125,14 @@ QString Player::getAlbumArt(FileRef ref, QUrl url)
 void Player::shuffle()
 {
     m_shuffle = !m_shuffle;
-    if (m_shuffle) {
-        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Random);
-    } else if (m_playlist->playbackMode() != QMediaPlaylist::PlaybackMode::Sequential) {
-        m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Sequential);
-    } else {
-        // Do nothing
+    if (!m_repeat) {
+        if (m_shuffle) {
+            m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Random);
+        } else if (m_playlist->playbackMode() != QMediaPlaylist::PlaybackMode::Sequential) {
+            m_playlist->setPlaybackMode(QMediaPlaylist::PlaybackMode::Sequential);
+        } else {
+            // Do nothing
+        }
     }
 }
 

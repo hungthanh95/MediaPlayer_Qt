@@ -3,6 +3,8 @@
 #include "player.h"
 #include <QQmlContext>
 #include "playlistmodel.h"
+#include <translation.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -11,14 +13,18 @@ int main(int argc, char *argv[])
 #endif
 
     qRegisterMetaType<QMediaPlaylist*>("QMediaPlaylist*");
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 
+    Translation translator(&app);
+
     Player player;
-    engine.rootContext()->setContextProperty("m_playplistModel", player.m_playlistModel);
-    engine.rootContext()->setContextProperty("m_player" ,player.m_player);
+    engine.rootContext()->setContextProperty("playplistModel", player.m_playlistModel);
+    engine.rootContext()->setContextProperty("player" ,player.m_player);
     engine.rootContext()->setContextProperty("myPlayer", &player);
+    engine.rootContext()->setContextProperty("translator",&translator);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

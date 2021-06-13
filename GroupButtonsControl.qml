@@ -4,8 +4,6 @@ import QtMultimedia 5.8
 
 RowLayout {
     id: groupButtonsControlId
-    property variant my_player: NULL
-    property variant player: NULL
 
     SwitchButton {
         icon_on: "Image/shuffle.png"
@@ -13,7 +11,7 @@ RowLayout {
         Layout.alignment: Qt.AlignLeft
         Layout.leftMargin: 140
         onClicked: {
-            my_player.shuffle();
+            myPlayer.shuffle();
         }
     }
 
@@ -23,7 +21,7 @@ RowLayout {
         icon_released: "Image/prev.png"
         anchors.right: buttonPlayId.left
         onClicked: {
-           my_player.prevMedia();
+           myPlayer.prevMedia();
         }
     }
 
@@ -35,7 +33,7 @@ RowLayout {
         icon_released: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
 
         onClicked: {
-            my_player.play();
+            myPlayer.play();
         }
     }
 
@@ -56,7 +54,7 @@ RowLayout {
         icon_released: "Image/next.png"
         anchors.left: buttonPlayId.right
         onClicked: {
-            my_player.nextMedia();
+            myPlayer.nextMedia();
         }
     }
 
@@ -67,7 +65,7 @@ RowLayout {
         Layout.alignment: Qt.AlignRight
         Layout.rightMargin: 140
         onClicked: {
-            my_player.repeater();
+            myPlayer.repeater();
         }
     }
 }
