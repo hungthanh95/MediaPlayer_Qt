@@ -16,7 +16,6 @@ Window {
     title: qsTr("Media Player") + translator.emptyString
 
     // Media Player now is myPlayer
-
     // Background of the Application
     Image {
         anchors.fill: parent
@@ -27,61 +26,67 @@ Window {
     Header {
         id: headerId
         onPlaylistButtonStatusChanged: {
-            drawer.open()
+            if (headerId.playlistButtonStatus) {
+                drawer.open()
+            } else {
+                drawer.close()
+            }
 
-        }
-    }
-
-    // Playlist
-    Image {
-        id: playlistImg
-        anchors.top: headerId.bottom
-        anchors.bottom: parent.bottom
-        source: "qrc:/Image/playlist.png"
-        opacity: 0.2
-    }
-    PlaylistView {
-        id: playlistId
-        width: 675
-        height: 193
-        anchors.fill: playlistImg
-        anchors.top : headerId.bottom
-
-        model: playplistModel
-
-        onCurrentItemChanged: {
-            player.playlist.setCurrentIndex(playlistId.currentIndex);
-            player.play();
-        }
-
-        onIsMutedChanged: {
-            player.setMuted(playlistId.isMuted)
         }
     }
 
     Drawer {
         id : drawer
-        y: headerId
-        width: 675
-        height: parent.height - headerId.height
-        interactive: false;
+        property alias aliasplaylistId: playlistId
+        implicitWidth: aliasplaylistId.width
+        implicitHeight : aliasplaylistId.height
+        interactive: false
         modal: false
+        y: headerId.height
         background: Rectangle {
             id: playList_bg
             anchors.fill: parent
             color: "transparent"
         }
+        // Playlist
+        Image {
+            id: playlistImg
+            anchors.top: headerId.bottom
+            anchors.bottom: parent.bottom
+            source: "qrc:/Image/playlist.png"
+            opacity: 0.2
+        }
+        PlaylistView {
+            id: playlistId
+            width: 675
+            height: 193
+            anchors.fill: playlistImg
+            anchors.top : headerId.bottom
 
+            model: playplistModel
+
+            onCurrentItemChanged: {
+                player.playlist.setCurrentIndex(playlistId.currentIndex);
+                player.play();
+            }
+
+            onIsMutedChanged: {
+                player.setMuted(playlistId.isMuted)
+            }
+        }
+//        Component.onCompleted: drawer.open()
     }
 
     // Media info
     MediaInfo {
         id: mediaInfoId
-        width: parent.width - playlistId.width
         height: 200
-        anchors.left : playlistId.right
-        anchors.top: headerId.bottom
-
+        anchors {
+            top: headerId.bottom
+            left : parent.left
+            leftMargin: 675 * drawer.position
+            right: parent.right
+        }
         songDetail: playlistId.currentItem.myData
         totalSong: playlistId.count
     }
@@ -90,13 +95,14 @@ Window {
     // Album thumbnail
     AlbumThumbnail {
         id: albumThumnailId
-        width: parent.width - playlistId.width
-        anchors.top: mediaInfoId.bottom
-        anchors.topMargin: 120
+        anchors {
+            top: mediaInfoId.bottom
+            left: parent.left
+            right: parent.right
 
-        anchors.left: playlistId.right
-        anchors.leftMargin: 60
-
+            leftMargin: (parent.width - 1100)/2 + 675 * drawer.position/2
+            topMargin: 120
+        }
         model: playplistModel
         playlist: playlistId
     }
@@ -104,22 +110,29 @@ Window {
     // ProgressBar
     MyProgressBar {
         id: myProgressBarId
-        width: parent.width - playlistId.width
+        anchors {
+            right: parent.right
+            left: parent.left
+            top: albumThumnailId.bottom
 
-        anchors.left: playlistId.right
-        anchors.leftMargin: 200
-        anchors.topMargin: 380
-        anchors.top: albumThumnailId.bottom
+            leftMargin: 675 * drawer.position
+            topMargin: 380
+        }
+
+
     }
 
     // Media ButtonControl
     GroupButtonsControl {
         id: groupButtonsControlId
-        width: parent.width - playlistId.width
-        anchors.top: myProgressBarId.bottom
-        anchors.topMargin: 50
+        anchors {
+            top: myProgressBarId.bottom
+            left: parent.left
+            right: parent.right
 
-        anchors.left: playlistId.right
+            topMargin: 50
+            leftMargin: 675 * drawer.position
+        }
     }
 
     Connections{
@@ -139,5 +152,4 @@ Window {
         }
 
     }
-
 }

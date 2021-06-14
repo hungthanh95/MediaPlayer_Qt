@@ -6,6 +6,7 @@ RowLayout {
     id: groupButtonsControlId
 
     SwitchButton {
+        id: shuffleId
         icon_on: "Image/shuffle.png"
         icon_off: "Image/shuffle-1.png"
         Layout.alignment: Qt.AlignLeft
@@ -31,25 +32,13 @@ RowLayout {
         icon_default: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
         icon_pressed: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/hold-pause.png" : "qrc:/Image/hold-play.png"
         icon_released: player.state == MediaPlayer.PlayingState ?  "qrc:/Image/pause.png" : "qrc:/Image/play.png"
-
         onClicked: {
             myPlayer.play();
         }
     }
 
-    Connections {
-        target: player
-       function onStateChanged() {
-            if (player.state == MediaPlayer.PlayingState) {
-                buttonPlayId.source = "qrc:/Image/pause.png"
-            } else {
-                buttonPlayId.source = "qrc:/Image/play.png"
-            }
-        }
-    }
-
     ButtonControl {
-         icon_default: "Image/next.png"
+        icon_default: "Image/next.png"
         icon_pressed: "Image/hold-next.png"
         icon_released: "Image/next.png"
         anchors.left: buttonPlayId.right
@@ -66,6 +55,17 @@ RowLayout {
         Layout.rightMargin: 140
         onClicked: {
             myPlayer.repeater();
+        }
+    }
+
+    Connections {
+        target: player
+       function onStateChanged() {
+            if (player.state == MediaPlayer.PlayingState) {
+                buttonPlayId.source = "qrc:/Image/pause.png"
+            } else {
+                buttonPlayId.source = "qrc:/Image/play.png"
+            }
         }
     }
 }

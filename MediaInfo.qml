@@ -28,6 +28,7 @@ Item {
             id: groupNumMusicId
             width: Math.abs(columnId.width - songTitleId.width)
             height: columnId.height / 2
+
             Image {
                 id: musicIconId
                 source: "Image/music.png"

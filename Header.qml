@@ -18,8 +18,8 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.verticalCenter: parent.verticalCenter
-        icon_off: "qrc:/Image/drawer.png"
-        icon_on: "qrc:/Image/back.png"
+        icon_off: "qrc:/Image/back.png"
+        icon_on: "qrc:/Image/drawer.png"
         onClicked: {
             headerItemId.playlistButtonStatus = !headerItemId.playlistButtonStatus
         }

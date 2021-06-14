@@ -36,15 +36,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-<<<<<<< HEAD
 
 LIBS += -L$$PWD/taglib/bin -ltag
-=======
-LIBS += -L$$PWD/taglib/bin -ltag
 
-INCLUDEPATH += $$PWD/taglib/include
-DEPENDPATH += $$PWD/taglib/include
->>>>>>> d3d1c50db34313629d2bcecc6826465d8a6bec70
 
 INCLUDEPATH += $$PWD/taglib/include
 DEPENDPATH += $$PWD/taglib/include

@@ -4,10 +4,6 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: myProgressBar
-    function str_pad_left(string,pad,length) {
-        return (new Array(length+1).join(pad)+string).slice(-length);
-    }
-
     Text {
         id: currentTime
         color: "white"
@@ -19,9 +15,9 @@ Item {
 
     Slider{
         id: sliderBar
-        width: 816
-        anchors.left: currentTime.right
-        anchors.leftMargin: 20
+        width: 1491 - 675 * drawer.position
+        anchors.horizontalCenter: parent.horizontalCenter
+
         from: 0
         to: player.duration
         value: player.position
@@ -67,6 +63,10 @@ Item {
         font.pointSize: 17
         anchors.left: sliderBar.right
         anchors.leftMargin: 30
+    }
+
+    function str_pad_left(string,pad,length) {
+        return (new Array(length+1).join(pad)+string).slice(-length);
     }
 
     function getTime(time){
